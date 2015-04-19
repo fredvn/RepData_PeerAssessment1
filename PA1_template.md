@@ -86,6 +86,17 @@ plot <- plot(StepsPerInterval$interval,StepsPerInterval$steps,type="l")
 
 ![](PA1_template_files/figure-html/unnamed-chunk-3-1.png) 
 
+```r
+maxsteps <- which.max( StepsPerInterval$steps )
+maxsteps
+```
+
+```
+## [1] 104
+```
+
+The interval with de maximum avarage number of steps is interval 104.
+
 ## Imputing missing values
 
 
@@ -93,11 +104,6 @@ plot <- plot(StepsPerInterval$interval,StepsPerInterval$steps,type="l")
 The total number of missing values is 2304
 
 create dataset where missing values are replaced bij the avarage of the 5 minute interval
-
-```r
-filled <- data
-```
-
 
 ```r
 library(dplyr)
@@ -117,6 +123,14 @@ library(dplyr)
 ```
 
 ```r
+#StepsPerInterval <- aggregate(steps ~ interval, data=data, FUN=mean, na.rm=TRUE)
+#filled <- mutate(data, steps=is.na(steps),StepsPerInterval$steps[interval],steps)
+filled=data
+```
+
+
+```r
+library(dplyr)
 StepsPerDayFilled <- aggregate(steps ~ date, data=filled,  FUN=sum, na.rm=TRUE)
 png(filename="figure/stepsPerDayFilled.png")
 histogram <- hist(StepsPerDayFilled$steps)

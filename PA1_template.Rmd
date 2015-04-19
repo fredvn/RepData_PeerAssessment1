@@ -66,7 +66,13 @@ png(filename="figure/stepsPerInterval.png")
 plot <- plot(StepsPerInterval$interval,StepsPerInterval$steps,type="l")
 dev.off()
 plot <- plot(StepsPerInterval$interval,StepsPerInterval$steps,type="l")
+
+maxsteps <- which.max( StepsPerInterval$steps )
+maxsteps
+
 ```
+
+The interval with de maximum avarage number of steps is interval `r maxsteps`.
 
 ## Imputing missing values
 
@@ -79,7 +85,11 @@ The total number of missing values is `r missing`
 
 create dataset where missing values are replaced bij the avarage of the 5 minute interval
 ```{r}
-filled <- data
+library(dplyr)
+#StepsPerInterval <- aggregate(steps ~ interval, data=data, FUN=mean, na.rm=TRUE)
+#filled <- mutate(data, steps=is.na(steps),StepsPerInterval$steps[interval],steps)
+filled=data
+
 ```
 
 ```{r}
